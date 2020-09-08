@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>all news</title>
+</head>
+<body>
+<form action="/news/" method="get">{% csrf_token %}
+    <label for="q">Title:</label><br>
+    <input type="text" id="q" name="q">
+    <button type="submit">Show news</button>
+</form>
+<h2>Hyper news</h2>
+{% for date, news in dates_sorted_dict.items|dictsortreversed:"0.lower" %}
+<h4>{{date}}</h4>
+    <ul>
+    {% for news_item in news %}
+        <li><a target="_blank" href="/news/{{news_item.link}}/">{{news_item.title}}</a></li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+<a target="_blank" href="/news/create/">Create</a>
+</body>
+</html>
